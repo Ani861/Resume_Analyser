@@ -4,6 +4,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk import ne_chunk, pos_tag
 from nltk.tree import Tree
+import fitz
 
 import re
 import matplotlib.pyplot as plt
@@ -33,6 +34,13 @@ try:
 except LookupError:
     nltk.download('stopwords')
 
+# ---------------- Core Functions ----------------
+def extract_text_from_pdf(file):
+    text = ""
+    pdf_file = fitz.open(stream=file.read(), filetype="pdf")
+    for page in pdf_file:
+        text += page.get_text()
+    return text
 
 def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
