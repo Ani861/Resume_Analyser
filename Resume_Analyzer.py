@@ -18,6 +18,9 @@ def download_nltk_resources():
         ("tokenizers/punkt_tab", "punkt_tab"),
         ("corpora/stopwords", "stopwords"),
         ("taggers/averaged_perceptron_tagger_eng", "averaged_perceptron_tagger_eng"),
+        ("chunkers/maxent_ne_chunker", "maxent_ne_chunker"),
+        ("chunkers/maxent_ne_chunker_tab", "maxent_ne_chunker_tab"),
+        ("corpora/words", "words"),
     ]
     for path, name in resources:
         try:
@@ -32,6 +35,7 @@ def setup_nltk():
     return True
 
 setup_nltk()
+
 
 # ---------------- Core Functions ----------------
 def extract_text_from_pdf(file):
