@@ -12,32 +12,26 @@ import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Download NLTK data
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
-try:
-    nltk.data.find('tokenizers/punkt_tab')
-except LookupError:
-    nltk.download('punkt_tab')
+def download_nltk_resources():
+    resources = [
+        ("tokenizers/punkt", "punkt"),
+        ("tokenizers/punkt_tab", "punkt_tab"),
+        ("corpora/stopwords", "stopwords"),
+        ("taggers/averaged_perceptron_tagger_eng", "averaged_perceptron_tagger_eng"),
+    ]
+    for path, name in resources:
+        try:
+            nltk.data.find(path)
+        except LookupError:
+            nltk.download(name)
 
-try:
-    nltk.data.find('taggers/averaged_perceptron_tagger')
-except LookupError:
-    nltk.download('averaged_perceptron_tagger')
-try:
-    nltk.data.find('chunkers/maxent_ne_chunker')
-except LookupError:
-    nltk.download('maxent_ne_chunker')
-try:
-    nltk.data.find('corpora/words')
-except LookupError:
-    nltk.download('words')
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords')
+# Run once at startup
+@st.cache_resource
+def setup_nltk():
+    download_nltk_resources()
+    return True
+
+setup_nltk()
 
 # ---------------- Core Functions ----------------
 def extract_text_from_pdf(file):
