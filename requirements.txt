@@ -2,4 +2,5 @@ streamlit
 nltk
 scikit-learn
 matplotlib
-fitz
+PyMuPDF==1.24.9
+
